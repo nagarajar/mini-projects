@@ -1,12 +1,15 @@
 package com.phonebook.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.phonebook.entity.Contact;
 import com.phonebook.repository.ContactRepository;
 
+@Service
 public class ContactServiceImpl implements IContactService {
 	
 	@Autowired
@@ -14,8 +17,12 @@ public class ContactServiceImpl implements IContactService {
 
 	@Override
 	public String saveContact(Contact contact) {
-		repo.save(contact);
-		return "Contact Saved Successfully";
+		contact = repo.save(contact);
+		if(contact.getContactId() != null) {			
+			return "Contact Saved Successfully";
+		}else {
+			return "Contact Failed To Save";			
+		}
 	}
 
 	@Override
@@ -25,20 +32,31 @@ public class ContactServiceImpl implements IContactService {
 
 	@Override
 	public Contact getContactById(Integer id) {
-		// TODO Auto-generated method stub
-		return repo.findById(id).get();
+		Optional<Contact> findById = repo.findById(id);
+		if(findById.isPresent()) {
+			return findById.get();
+		}
+		return null;
 	}
 
 	@Override
 	public String updateContact(Contact contact) {
-		repo.save(contact);
-		return "Contact Updated Successfully";
+		if(repo.existsById(contact.getContactId())) {
+			repo.save(contact);
+			return "Contact Updated Successfully";
+		}else {			
+			return "Contact Not Found";
+		}
 	}
 
 	@Override
 	public String deleteContactById(Integer id) {
-		repo.deleteById(id);
-		return "Contact Deleted Successfully";
+		if(repo.existsById(id)) {			
+			repo.deleteById(id);
+			return "Contact Deleted Successfully";
+		}else {			
+			return "Contact Not Found";
+		}
 	}
 
 }
