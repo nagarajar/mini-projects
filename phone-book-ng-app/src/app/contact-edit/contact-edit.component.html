@@ -1,0 +1,15 @@
+<div align="center">
+    <h3>Edit Contact</h3>
+
+    <form>
+        ID   : <input type="text" name="contactId" [(ngModel)]="contact.contactId" readonly> <br><br>
+        Name : <input type="text" name="contactName" [(ngModel)]="contact.contactName"/> <br><br>
+        Email: <input type="email" name="contactEmail" [(ngModel)]="contact.contactEmail"/><br><br>
+        Phno : <input type="text" name="contactNum" [(ngModel)]="contact.contactNum"/><br><br>
+        <input type="button" value="Save" (click)="updateContact()">
+    </form>
+    <div *ngIf="msg">
+        {{msg}}
+    </div>
+    <a routerLink="/all"><h3>View All Contacts</h3></a>
+</div>

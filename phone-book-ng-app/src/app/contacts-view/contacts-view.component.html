@@ -1,0 +1,31 @@
+<div align = "center">
+    <h2>All Contacts</h2>
+    <a routerLink="/create"><h3>+Add New Contact</h3></a>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phno</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let contact of contacts;let indexOfelement=index;">
+                <td>{{indexOfelement+1}}</td>
+                <td>{{contact.contactName}}</td>
+                <td>{{contact.contactEmail}}</td>
+                <td>{{contact.contactNum}}</td>
+                <td>
+                <button type="button" (click)="editContact(contact.contactId)">Edit</button> &nbsp; 
+                <button type="button" (click)="deleteContact(contact.contactId)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="msg">
+        {{msg}}
+    </div>
+</div>

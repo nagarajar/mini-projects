@@ -1,0 +1,19 @@
+<div align="center">
+
+    <h3>Contact Info</h3>
+
+    <form>
+        Name : <input type="text" name="contactName" [(ngModel)]="contact.contactName"/> <br><br>
+        Email: <input type="email" name="contactEmail" [(ngModel)]="contact.contactEmail"/><br><br>
+        Phno : <input type="text" name="contactNum" [(ngModel)]="contact.contactNum"/><br><br>
+        <input type="button" value="Submit" (click)="saveContact()">
+
+    </form>
+    <div *ngIf="msg">
+        {{msg}}
+    </div>
+    <a routerLink="/all"><h3>View All Contacts</h3></a>
+</div>
+
+
+  
