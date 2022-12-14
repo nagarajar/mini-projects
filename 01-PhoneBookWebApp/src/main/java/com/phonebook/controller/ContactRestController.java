@@ -20,7 +20,7 @@ import com.phonebook.service.IContactService;
 
 @RestController
 @RequestMapping("/v1/app/contact")
-@CrossOrigin
+@CrossOrigin("http://localhost:4200")
 public class ContactRestController 
 {
 	@Autowired
