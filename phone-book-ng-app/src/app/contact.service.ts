@@ -10,7 +10,7 @@ export class ContactService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = "http://localhost:9696/v1/app/contact";
+  private baseUrl = "http://localhost:9696/v1/app/contact";
 
   createContact(contact: Contact): Observable<any> {
     return this.http.post(`${this.baseUrl}/create`, contact, { responseType: 'text' });

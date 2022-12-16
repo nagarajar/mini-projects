@@ -8,7 +8,7 @@ const routes: Routes = [
   {path:'create', component:ContactFormComponent},
   {path:'all', component:ContactsViewComponent},
   {path:'edit/:id', component:ContactEditComponent},
-  {path:'', redirectTo:'create',pathMatch:'full'},
+  {path:'', redirectTo:'all',pathMatch:'full'},
   {path:'**', component:ContactFormComponent}
   
 ];

@@ -13,10 +13,21 @@ export class ContactFormComponent {
 
   constructor(private service:ContactService){}
 
+  onSubmit(){
+    console.log(this.contact);
+    this.saveContact();
+  }
+
   saveContact(){
     this.service.createContact(this.contact).subscribe(
       response => {
         this.msg = response;
+        console.log("SUCCESSFULL........");
+        console.log(response);
+      },
+      error=>{
+        console.log("FAILED........");
+        console.log(error);
       }
     )
   }

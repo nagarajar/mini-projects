@@ -22,17 +22,31 @@ export class ContactEditComponent implements OnInit {
   }
 
   loadContact(id:number) {
+    console.log("UPDATED ID ::"+id);
     this.service.getOneContact(id).subscribe(
       response => {
+        console.log("GETTING A CONTACT..");
+        console.log(response);
         this.contact = response;
+      },
+      error=>{
+        console.log("SOMETHING WENT WRONG DURING GETTING A CONTACT..");
+        console.log(error);  
       }
     )
   }
 
   updateContact() {
+    console.log("UPDATED ..");
     this.service.updateContact(this.contact).subscribe(
       response => {
+        console.log("UPDATING A CONTACT..");
+        console.log(response);
         this.msg = response;
+      },
+      error=>{
+        console.log("SOMETHING WENT WRONG DURING UPDATING A CONTACT..");
+        console.log(error);
       }
     )
   }

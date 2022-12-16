@@ -14,6 +14,7 @@ export class ContactsViewComponent implements OnInit {
 
   constructor(private service: ContactService,
     private router: Router) { }
+  
   ngOnInit() {
     this.getAllContacts();
   }
@@ -30,8 +31,14 @@ export class ContactsViewComponent implements OnInit {
     if (confirm("Are you sure you want to delete this item ?")) {
       this.service.deleteContact(id).subscribe(
         response => {
+          console.log("SUCCESSFULL........");
+          console.log(response);
           this.msg = response;
           this.getAllContacts();
+        },
+        error=>{
+          console.log("FAILED........");
+          console.log(error);
         }
       )
     }
@@ -41,6 +48,7 @@ export class ContactsViewComponent implements OnInit {
   }
 
   editContact(id: number) {
+    console.log("Edited :: "+id);
     this.router.navigate(['/edit', id]);
   }
 

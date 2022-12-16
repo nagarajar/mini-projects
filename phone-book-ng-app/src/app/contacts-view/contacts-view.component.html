@@ -1,7 +1,7 @@
-<div align = "center">
-    <h2>All Contacts</h2>
-    <a routerLink="/create"><h3>+Add New Contact</h3></a>
-    <table border="1">
+<div class="container">
+    <h2 class="text-center mt-2">All Contacts List</h2>
+    <!-- <a class="btn btn-primary" routerLink="/create"><h3>+Add New Contact</h3></a> -->
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>S.No</th>
@@ -18,14 +18,15 @@
                 <td>{{contact.contactEmail}}</td>
                 <td>{{contact.contactNum}}</td>
                 <td>
-                <button type="button" (click)="editContact(contact.contactId)">Edit</button> &nbsp; 
-                <button type="button" (click)="deleteContact(contact.contactId)">Delete</button>
+                <button type="button" class="btn btn-info" (click)="editContact(contact.contactId)">Edit</button> &nbsp; 
+                <button type="button" class="btn btn-danger" (click)="deleteContact(contact.contactId)">Delete</button>
                 </td>
             </tr>
         </tbody>
     </table>
 
-    <div *ngIf="msg">
-        {{msg}}
+    <br>
+    <div *ngIf="msg" class="font-weight-bold text-white bg-secondary text-center">
+        <h6>{{msg}}</h6>
     </div>
 </div>

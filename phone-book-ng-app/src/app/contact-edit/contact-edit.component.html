@@ -1,15 +1,54 @@
-<div align="center">
-    <h3>Edit Contact</h3>
+<div  class="col-md-6 offset-md-3">
 
-    <form>
-        ID   : <input type="text" name="contactId" [(ngModel)]="contact.contactId" readonly> <br><br>
-        Name : <input type="text" name="contactName" [(ngModel)]="contact.contactName"/> <br><br>
-        Email: <input type="email" name="contactEmail" [(ngModel)]="contact.contactEmail"/><br><br>
-        Phno : <input type="text" name="contactNum" [(ngModel)]="contact.contactNum"/><br><br>
-        <input type="button" value="Save" (click)="updateContact()">
+    <h2>Create Contact</h2>
+
+    <form (ngSubmit)="updateContact()">
+        <div class="form-group">
+            <label >Id</label>
+            <input type="text" 
+            class="form-control" 
+            name="contactId" 
+            id="contactId"
+            [(ngModel)]="contact.contactId"
+            readonly>
+        </div>
+        <div class="form-group">
+            <label >Name</label> 
+            <input type="text" 
+            class="form-control"
+            name="contactName" 
+            id="contactName"
+            [(ngModel)]="contact.contactName"/>
+        </div>
+        <div class="form-group">
+            <label >Email</label>
+            <input type="email" 
+            class="form-control"
+            name="contactEmail" 
+            id="contactEmail"
+            [(ngModel)]="contact.contactEmail"/>
+        </div>
+        <div class="form-group">
+            <label >Phone</label>
+            <input type="text" 
+            class="form-control"
+            name="contactNum" 
+            id="contactNum"
+            [(ngModel)]="contact.contactNum"/>
+        </div>
+        <br>
+        <div>
+            <input class="btn btn-success" type="submit" value="Submit">
+        </div>
+
     </form>
-    <div *ngIf="msg">
-        {{msg}}
+    <br>
+    <div *ngIf="msg" class="font-weight-bold text-white bg-secondary text-center">
+        <h6>{{msg}}</h6>
     </div>
-    <a routerLink="/all"><h3>View All Contacts</h3></a>
+    <br>
+    <!-- <a routerLink="/all"><h3>View All Contacts</h3></a> -->
 </div>
+
+
+  
