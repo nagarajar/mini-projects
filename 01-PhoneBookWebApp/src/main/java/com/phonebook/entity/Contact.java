@@ -24,4 +24,7 @@ public class Contact
 	private String contactEmail;
 	@Column(name = "CONTACT_NUMBER")
 	private Long contactNum;
+	// For Soft Delete
+	@Column(name = "ACTIVE_SWITCH")
+	private String activeSw;
 }

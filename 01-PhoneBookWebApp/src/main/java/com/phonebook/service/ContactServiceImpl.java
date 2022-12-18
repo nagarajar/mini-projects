@@ -17,6 +17,7 @@ public class ContactServiceImpl implements IContactService {
 
 	@Override
 	public String saveContact(Contact contact) {
+		contact.setActiveSw("Y");
 		contact = repo.save(contact);
 		if(contact.getContactId() != null) {			
 			return "Contact Saved Successfully";
@@ -27,7 +28,9 @@ public class ContactServiceImpl implements IContactService {
 
 	@Override
 	public List<Contact> getAllContacts() {	
-		return repo.findAll();
+		//return repo.findAll();
+		//For Soft delete
+		return repo.findByActiveSw("Y");
 	}
 
 	@Override
@@ -51,8 +54,19 @@ public class ContactServiceImpl implements IContactService {
 
 	@Override
 	public String deleteContactById(Integer id) {
-		if(repo.existsById(id)) {			
-			repo.deleteById(id);
+		/*
+		 * if(repo.existsById(id)) { repo.deleteById(id); return
+		 * "Contact Deleted Successfully"; }else { return "Contact Not Found"; }
+		 */
+		
+		// Implementing Soft Delete Process
+		// Hard Delete: Deleting the record permanently from DB
+		// Soft Delete: Instead of Deleting the record permanently from DB we can In-Activate the
+		//  record if we don't want, so in future you can retrieve from DB.
+		Contact contactById = getContactById(id);
+		if(contactById != null) {			
+			contactById.setActiveSw("N");
+			repo.save(contactById);
 			return "Contact Deleted Successfully";
 		}else {			
 			return "Contact Not Found";
