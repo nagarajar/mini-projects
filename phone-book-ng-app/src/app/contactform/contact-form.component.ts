@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Contact } from '../contact';
 import { ContactService } from '../contact.service';
 
@@ -11,7 +12,8 @@ export class ContactFormComponent {
   contact:Contact = new Contact();
   msg:string="";
 
-  constructor(private service:ContactService){}
+  constructor(private service:ContactService, 
+    private router: Router){}
 
   onSubmit(){
     console.log(this.contact);
@@ -24,6 +26,7 @@ export class ContactFormComponent {
         this.msg = response;
         console.log("SUCCESSFULL........");
         console.log(response);
+        this.router.navigate(['/all']);
       },
       error=>{
         console.log("FAILED........");

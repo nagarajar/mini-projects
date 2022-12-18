@@ -43,6 +43,7 @@ export class ContactEditComponent implements OnInit {
         console.log("UPDATING A CONTACT..");
         console.log(response);
         this.msg = response;
+        this.router.navigate(['/all']);
       },
       error=>{
         console.log("SOMETHING WENT WRONG DURING UPDATING A CONTACT..");
