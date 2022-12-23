@@ -1,6 +1,6 @@
 package com.mini.project.model;
 
-import java.util.Date;
+//import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,37 +13,37 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "employee")
-public class Employee {
+@Table(name = "citizen_plans_info")
+public class CitizenPlan {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
-	private Integer empId;
+	private Integer cid;
 	
 	@Column(name = "name")
-	private String empName;
+	private String cname;
 	
 	@Column(name = "email")
-	private String empEmail;
+	private String cemail;
 	
 	@Column(name = "phone_num")
-	private Integer emplPhoneNum;
+	private Integer phno;
 	
 	@Column(name = "gender")
-	private String empGen;
+	private String gender;
 
 	@Column(name = "ssn")
-	private Integer empSsn;
+	private Integer ssn;
 	
 	@Column(name = "plan_name")
-	private String empPlanName;
+	private String planName;
 	
 	@Column(name = "plan_status")
-	private String empPlanStatus;
+	private String planStatus;
 	
-	@Column(name = "start_date")
-	private Date empStartDate;
-	
-	@Column(name = "end_date")
-	private Date empEndDate;
+	/*
+	 * @Column(name = "start_date") private Date startDate;
+	 * 
+	 * @Column(name = "end_date") private Date endDate;
+	 */
 }

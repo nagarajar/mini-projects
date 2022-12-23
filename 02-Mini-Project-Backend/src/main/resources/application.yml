@@ -1,0 +1,22 @@
+#Port Details
+server:
+  port: 8080
+
+#Data Base Configurations
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/jrtp22
+    username: root
+    password: root
+#JPA Configurations
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+      
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+
