@@ -96,8 +96,13 @@ public class CitizenPlanServiceImpl implements ICitizenPlanService {
 		}
 		
 		if(request.getPlanStatus() != null && !request.getPlanStatus().equals("")) {
-			entity.setPlanName(request.getPlanStatus());
+			entity.setPlanStatus(request.getPlanStatus());
 		}
+		
+		if(request.getGender() != null && !request.getGender().equals("")) {
+			entity.setGender(request.getGender());
+		}
+		
 		Example<CitizenPlan> example = Example.of(entity);
 		
 		List<CitizenPlan> records = citizenPlanRepository.findAll(example);

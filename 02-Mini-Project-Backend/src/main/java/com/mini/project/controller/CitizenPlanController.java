@@ -27,7 +27,7 @@ import com.mini.project.service.ICitizenPlanService;
 
 
 @RestController
-@RequestMapping("/CitizenPlan")
+@RequestMapping("/citizen")
 public class CitizenPlanController 
 {
 	@Autowired
@@ -39,7 +39,7 @@ public class CitizenPlanController
 		return new ResponseEntity<String>(msg,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/all")
+	@PostMapping("/search")
 	public ResponseEntity<List<CitizenPlan>> getCitizenPlans(@RequestBody SearchRequest request){
 		List<CitizenPlan> citizenPlans = citizenPlanService.getAllCitizenPlans(request);
 		return new ResponseEntity<List<CitizenPlan>>(citizenPlans,HttpStatus.OK);
@@ -66,6 +66,15 @@ public class CitizenPlanController
 		return new ResponseEntity<String>(msg,HttpStatus.OK);
 	}
 	
+	@GetMapping("/plannames")
+	public ResponseEntity<List<String>> getPlanNames(){
+		return ResponseEntity.ok(citizenPlanService.getPlanNames());
+	}
+	
+	@GetMapping("/planstatuses")
+	public ResponseEntity<List<String>> getPlanStatuses(){
+		return ResponseEntity.ok(citizenPlanService.getPlanStatuses());
+	}
 	
 	@GetMapping("/excel")
 	public void generateExcelReport(HttpServletResponse response) throws Exception {

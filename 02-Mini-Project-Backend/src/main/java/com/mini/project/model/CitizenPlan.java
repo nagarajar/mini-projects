@@ -27,13 +27,13 @@ public class CitizenPlan {
 	private String cemail;
 	
 	@Column(name = "phone_num")
-	private Integer phno;
+	private Long phno;
 	
 	@Column(name = "gender")
 	private String gender;
 
 	@Column(name = "ssn")
-	private Integer ssn;
+	private Long ssn;
 	
 	@Column(name = "plan_name")
 	private String planName;
