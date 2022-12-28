@@ -1,0 +1,18 @@
+#Server Port
+server:
+  port: 8081
+  
+#Data Base Configuration
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/jrtp22
+    username: root
+    password: root
+
+#JPA Configuration
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
