@@ -10,11 +10,11 @@ public interface IUserManagementService {
 	
 	public String checkEmail(String email);
 	
-	public Map<Integer, String> getCountries();
+	public Map<Long, String> getCountries();
 
-	public Map<Integer, String> getStates(Integer countryId);
+	public Map<Long, String> getStates(Integer countryId);
 
-	public Map<Integer, String> getCities(Integer stateId);
+	public Map<Long, String> getCities(Integer stateId);
 
 	public String registerUser(User user);
 

@@ -47,7 +47,7 @@ public class User {
 	@Column(name = "user_pwd")
 	private String userPwd;
 	
-	@Column(name = "account_status")
+	@Column(name = "account_status",columnDefinition = "varchar(255) default 'locked'")
 	private String accStatus;
 	
 }
