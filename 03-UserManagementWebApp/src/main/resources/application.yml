@@ -16,3 +16,16 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
+      
+#Java mail configuration
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username:
+#    password:
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true

@@ -35,6 +35,9 @@ public class User {
 	@Column(name = "dob")
 	private Date dob;
 	
+	@Column(name = "gender")
+	private String gender;
+	
 	@Column(name = "country_id")
 	private Long countryId;
 	
@@ -47,7 +50,7 @@ public class User {
 	@Column(name = "user_pwd")
 	private String userPwd;
 	
-	@Column(name = "account_status",columnDefinition = "varchar(255) default 'locked'")
+	@Column(name = "account_status",columnDefinition = "varchar(255) default 'LOCKED'")
 	private String accStatus;
 	
 }
