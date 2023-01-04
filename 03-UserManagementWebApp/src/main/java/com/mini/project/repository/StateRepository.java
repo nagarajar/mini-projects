@@ -14,6 +14,6 @@ public interface StateRepository extends JpaRepository<State, Long> {
 	
 	//2nd way
 	@Query("select s from State s where s.countryId=:countryId order by s.stateName")
-	List<State> getAllStatesBasedOnCountryId(Integer countryId);
+	List<State> getAllStatesBasedOnCountryId(Long countryId);
 	
 }

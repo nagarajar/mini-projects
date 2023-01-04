@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.mini.project.entity.User;
 
-@Component
+//@Component
 public class MailSenderUtil {
 
 	@Autowired

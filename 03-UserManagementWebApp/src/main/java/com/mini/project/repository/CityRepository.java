@@ -9,5 +9,5 @@ import com.mini.project.entity.City;
 
 public interface CityRepository extends JpaRepository<City, Long> {
 	@Query("select c from City c where c.stateId=:stateId order by c.cityName")
-	List<City> getAllCitiesBasedOnStateId(Integer stateId);
+	List<City> getAllCitiesBasedOnStateId(Long stateId);
 }

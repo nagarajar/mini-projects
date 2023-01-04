@@ -34,12 +34,12 @@ public class UserRestController {
 	}
 	
 	@GetMapping("/states/{countryId}")
-	public ResponseEntity<Map<Long, String>> loadstates(@PathVariable Integer countryId){ 
+	public ResponseEntity<Map<Long, String>> loadstates(@PathVariable Long countryId){ 
 		return ResponseEntity.ok(userService.getStates(countryId));
 	}
 	
 	@GetMapping("/cities/{stateId}")
-	public ResponseEntity<Map<Long, String>> loadCities(@PathVariable Integer stateId){ 
+	public ResponseEntity<Map<Long, String>> loadCities(@PathVariable Long stateId){ 
 		return ResponseEntity.ok(userService.getCities(stateId));
 	}
 	

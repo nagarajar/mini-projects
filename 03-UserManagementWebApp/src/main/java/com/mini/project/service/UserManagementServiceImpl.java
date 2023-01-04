@@ -1,13 +1,18 @@
 package com.mini.project.service;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Stream;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import com.mini.project.dto.LoginForm;
 import com.mini.project.dto.UnlockAccForm;
@@ -20,9 +25,9 @@ import com.mini.project.repository.CityRepository;
 import com.mini.project.repository.CountryRepository;
 import com.mini.project.repository.StateRepository;
 import com.mini.project.repository.UserRepository;
-import com.mini.project.util.MailSenderUtil;
-import com.mini.project.util.PasswordGeneratorUtil;
+import com.mini.project.util.EmailUtils;
 
+@Service
 public class UserManagementServiceImpl implements IUserManagementService {
 
 	@Autowired
@@ -34,7 +39,7 @@ public class UserManagementServiceImpl implements IUserManagementService {
 	@Autowired
 	private CityRepository cityRepo;
 	@Autowired
-	private MailSenderUtil sendMail;
+	private EmailUtils emailUtils;
 
 	@Override
 	public String checkEmail(String email) {
@@ -54,7 +59,7 @@ public class UserManagementServiceImpl implements IUserManagementService {
 	}
 
 	@Override
-	public Map<Long, String> getStates(Integer countryId) {
+	public Map<Long, String> getStates(Long countryId) {
 		List<State> states = stateRepo.getAllStatesBasedOnCountryId(countryId);
 		Map<Long, String> stateMap = new LinkedHashMap<>();
 		states.forEach(state -> stateMap.put(state.getStateId(), state.getStateName()));
@@ -62,7 +67,7 @@ public class UserManagementServiceImpl implements IUserManagementService {
 	}
 
 	@Override
-	public Map<Long, String> getCities(Integer stateId) {
+	public Map<Long, String> getCities(Long stateId) {
 		List<City> cities = cityRepo.getAllCitiesBasedOnStateId(stateId);
 		Map<Long, String> cityMap = new LinkedHashMap<>();
 		cities.forEach(city -> cityMap.put(city.getCityId(), city.getCityName()));
@@ -85,23 +90,13 @@ public class UserManagementServiceImpl implements IUserManagementService {
 			// 4. Save the entity
 			user = userRepo.save(user);
 			// 5. Send email to unlock account
-			String status = sendMail.sendUnlockMail(user);
-			return status;
+			String to = userForm.getEmail();
+			String subject = "Unlock IES Account";
+			String body = readEmailBody("UNLOCK_ACC_EMAIL_BODY.txt", user);
+			emailUtils.sendMail(to, subject, body);
+			return "User Account Created";
 		}
 		return "User failed to register because this email is already in use...!";
-	}
-
-	private String generateRandomPwd() {
-		String text = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&";
-		StringBuilder sb = new StringBuilder();
-		Random random = new Random();
-		int pwdLength = 8;
-		for (int i = 1; i <= 8; i++) {
-			int index = random.nextInt(pwdLength);
-			sb.append(text.charAt(index));
-		}
-
-		return sb.toString();
 	}
 
 	@Override
@@ -150,9 +145,47 @@ public class UserManagementServiceImpl implements IUserManagementService {
 			return "No Account Fond...!";
 		}
 		// 3. If user found
-		String status = sendMail.sendForgotPwdMail(user);
-		return status;
+		String subject = "Recovery Password";
+		String body = readEmailBody("FORGOT_PWD_EMAIL_BODY.txt", user);
+		emailUtils.sendMail(email, subject, body);
+		return "Password sent to registered email";
 
+	}
+	
+	private String generateRandomPwd() {
+		String text = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&";
+		StringBuilder sb = new StringBuilder();
+		Random random = new Random();
+		int pwdLength = 8;
+		for (int i = 1; i <= 8; i++) {
+			int index = random.nextInt(pwdLength);
+			sb.append(text.charAt(index));
+		}
+
+		return sb.toString();
+	}
+	
+	private String readEmailBody(String filename, User user) {
+		//2. Take a StringBuffer to store the file content bcs it is not Immutable
+		StringBuffer sb = new StringBuffer();
+		
+		//1.Files.lines is used to read all lines at a time introduced in 1.8v
+		try(Stream<String> lines = Files.lines(Paths.get(filename))) {
+			//Replace all the Dynamic variables based on user
+			lines.forEach(line ->{
+				line = line.replace("${FNAME}", user.getFirstName());
+				line = line.replace("${LNAME}", user.getLastName());
+				line = line.replace("${TEMP_PWD}", user.getUserPwd());
+				line = line.replace("${EMAL}", user.getEmail());
+				line = line.replace("${PWD}", user.getUserPwd());
+				
+				sb.append(line);
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//Return as string
+		return sb.toString();
 	}
 
 }

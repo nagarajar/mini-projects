@@ -29,3 +29,9 @@ spring:
 #          auth: true
 #          starttls:
 #            enable: true
+
+#Swagger Configuration
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+
