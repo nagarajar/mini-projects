@@ -20,9 +20,11 @@ public class EmailUtils {
 			MimeMessage mimeMessage = mailSender.createMimeMessage();
 			//2. With the help of MimeMessageHelper we can construct mail
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+			helper.setFrom("rajanagaraja36@gmail.com");
 			helper.setTo(to);
 			helper.setSubject(subject);
 			helper.setText(body, true);
+			mailSender.send(mimeMessage);
 			isSent = true;
 			
 		} catch (Exception e) {

@@ -1,7 +1,6 @@
 package com.mini.project.service;
 
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -27,9 +26,12 @@ import com.mini.project.repository.StateRepository;
 import com.mini.project.repository.UserRepository;
 import com.mini.project.util.EmailUtils;
 
+
 @Service
 public class UserManagementServiceImpl implements IUserManagementService {
 
+	private Random random = new Random();
+	
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired
@@ -83,8 +85,7 @@ public class UserManagementServiceImpl implements IUserManagementService {
 			User user = new User();
 			BeanUtils.copyProperties(userForm, user);
 			// 2. Generate and set random password
-			// user.setUserPwd(PasswordGeneratorUtil.generateSecurePassword());
-			user.setUserPwd(generateRandomPwd());
+				user.setUserPwd(generateRandomPwd());
 			// 3. Set Account as LOCKED
 			user.setAccStatus("LOCKED");
 			// 4. Save the entity
@@ -110,7 +111,7 @@ public class UserManagementServiceImpl implements IUserManagementService {
 			// Change the accSatus
 			user.setAccStatus("UNLOCKED");
 			// Save user
-			user = userRepo.save(user);
+			userRepo.save(user);
 			return "‘Account unlocked, please proceed with login";
 		}
 		return "Please enter the valid temporary password";
@@ -155,7 +156,6 @@ public class UserManagementServiceImpl implements IUserManagementService {
 	private String generateRandomPwd() {
 		String text = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&";
 		StringBuilder sb = new StringBuilder();
-		Random random = new Random();
 		int pwdLength = 8;
 		for (int i = 1; i <= 8; i++) {
 			int index = random.nextInt(pwdLength);
@@ -167,7 +167,7 @@ public class UserManagementServiceImpl implements IUserManagementService {
 	
 	private String readEmailBody(String filename, User user) {
 		//2. Take a StringBuffer to store the file content bcs it is not Immutable
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		
 		//1.Files.lines is used to read all lines at a time introduced in 1.8v
 		try(Stream<String> lines = Files.lines(Paths.get(filename))) {

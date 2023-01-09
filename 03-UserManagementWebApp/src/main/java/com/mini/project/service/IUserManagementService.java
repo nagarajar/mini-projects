@@ -5,7 +5,7 @@ import java.util.Map;
 import com.mini.project.dto.LoginForm;
 import com.mini.project.dto.UnlockAccForm;
 import com.mini.project.dto.UserForm;
-import com.mini.project.entity.User;
+
 
 public interface IUserManagementService {
 	
